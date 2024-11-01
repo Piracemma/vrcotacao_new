@@ -28,7 +28,18 @@ function formatDataBanco($data) {
 }
 
 function formatCusto($valor) {
-    $casaDecimal = strlen(explode('.',(float)$valor)[1]) <= 2 ? 2 : strlen(explode('.',(float)$valor)[1]);
+    // $casaDecimal = isset(strlen(explode('.',(float)$valor)[1])) && strlen(explode('.',(float)$valor)[1]) <= 2 ? 2 : strlen(explode('.',(float)$valor)[1]);
+    $casaDecimal = 2;
+
+    if(isset(explode('.',(float)$valor)[1])) {
+
+        if(strlen(explode('.',(float)$valor)[1]) <= 2) {
+            $casaDecimal = 2;
+        } else {
+            $casaDecimal = strlen(explode('.',(float)$valor)[1]);
+        }
+
+    }
 
     return number_format($valor,$casaDecimal,",",".");
 }
@@ -138,6 +149,8 @@ function validarCusto($codigo, $tipoembalagem, $custo) {
     $rst = pg_query($con, $sql);
     $row = pg_fetch_array($rst);
 
+    $custoatual = 0;
+
     if ($row) {
         $custoatual = $row["custo"];
     } else {
@@ -157,18 +170,26 @@ function validarCusto($codigo, $tipoembalagem, $custo) {
         $percentualabaixo = $percentualacima;
     }
 
-    $maiorcusto = round($custoatual + ($custoatual * $percentualacima / 100), 2);
-    $menorcusto = round($custoatual - ($custoatual * $percentualabaixo / 100), 2);
+    //Valida se utiliza o percentual antes de rodar qualquer outro codigo
+    if($utilizapercentual) {
 
-    if (!$utilizapercentual) {
-        return "";
-    } else if ($custo > $maiorcusto && $percentualacima != "") {
-        return ">";
-    } else if ($custo < $menorcusto && $percentualabaixo != "") {
-        return "<";
+        $maiorcusto = round($custoatual + ($custoatual * $percentualacima / 100), 2);
+        $menorcusto = round($custoatual - ($custoatual * $percentualabaixo / 100), 2);
+
+        if ($custo > $maiorcusto && $percentualacima != "") {
+            return ">";
+        } else if ($custo < $menorcusto && $percentualabaixo != "") {
+            return "<";
+        } else {
+            return "";
+        }
+
     } else {
+
         return "";
+
     }
+    
 }
 
 function getParametro($_id) {
@@ -307,7 +328,6 @@ function carregarCotacaoAberta($_id) {
 
     while ($row = pg_fetch_array($rst)) {
         $cotacao = formatNumber($row["id"], 3);
-        // $tipo = $row["tipo"];
         $descricao = $row["descricao"];
         $selected = $_id == $row["id"] ? "selected" : "";
 
@@ -315,6 +335,56 @@ function carregarCotacaoAberta($_id) {
     }
 
     return $combo;
+}
+
+function listarCotacaoAberta() {
+    global $con;
+
+    $sql = "SELECT DISTINCT cotacao.id, cotacao.descricao
+            FROM precotacaofornecedor AS cotacao
+            INNER JOIN precotacaofornecedoritemfornecedor AS pfif ON pfif.id_precotacaofornecedor = cotacao.id
+            WHERE cotacao.id_situacaoprecotacaofornecedor = 1
+            AND NOW() BETWEEN cotacao.datahorainicio AND cotacao.datahoratermino
+            AND pfif.id_fornecedor = $_SESSION[fornecedor]
+            ORDER  BY cotacao.id DESC";
+
+    $rst = pg_query($con, $sql);
+
+    $return = pg_fetch_all($rst);
+
+    return $return;
+}
+
+function validarCotacaoParaFornecedor($id_contacao) {
+    global $con;
+
+    $consulta = htmlspecialchars($id_contacao, ENT_QUOTES, 'UTF-8');
+
+    if (!is_numeric($consulta)) {
+        return false;
+    }
+
+    $fornecedor = $_SESSION['fornecedor'];
+
+    $sql = "SELECT pcf.id
+            FROM precotacaofornecedor AS pcf
+            INNER JOIN precotacaofornecedoritemfornecedor AS pcfif ON  pcfif.id_precotacaofornecedor = pcf.id
+            WHERE pcf.id = $consulta AND pcfif.id_fornecedor = $fornecedor AND id_situacaoprecotacaofornecedor = 1 AND NOW() BETWEEN datahorainicio AND datahoratermino";
+    
+    $rst = pg_query($con,$sql);
+
+    $resultado = pg_fetch_row($rst);
+
+    if(!empty($resultado)) {
+
+        return true;
+
+    } else {
+
+        return false;
+
+    }
+
 }
 
 function isTipoEmbalagemFracionado($idTipoEmbalagem){

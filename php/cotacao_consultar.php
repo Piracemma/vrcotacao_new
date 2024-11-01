@@ -76,25 +76,23 @@ $enviaProdutoZerado = $row["enviaprodutozerado"];
 echo "<div style = 'position: fixed; background-color: #FFFFFF; border-bottom: 1px solid; border-color: #B1B1B1;'>";
 echo "<div class = 'legenda'>";
 echo "<div style = 'vertical-align: top; margin-left: 15px; margin-right: 15px;'>";
-echo "<td style = 'width: 50px; height: 43px; padding-top: 20px'>Cotação:&nbsp</td>";
-echo "<td style = 'padding-left: 10px; padding-top: 19px'><select id = 'cboCotacao' onchange = 'consultar(this.value)' style = 'height:23px; padding-top: 2px; padding-right: 6px; width:auto; margin-bottom: 0px;'>" . carregarCotacaoAberta($cotacao) . "</select>";
+echo "<span style = 'width: 50px; height: 43px; padding-top: 10px; color: #00d7ac; font-weight: bold; font-size:18px;'>Cotação:&nbsp</span>";
+echo "<span style = 'padding-left: 0px; padding-top: 19px'><select id = 'cboCotacao' onchange = 'consultar(this.value)' style = 'height:23px; padding-top: 2px; padding-right: 6px; width:auto; margin-bottom: 0px;'>" . carregarCotacaoAberta($cotacao) . "</select>";
 echo "<input type = 'hidden' name = 'cotacao' id = 'cotacao' value = '$cotacao'>";
-echo "<input type = 'hidden' name = 'datacotacao' id = 'datacotacao' value = '$datacotacao'></td>";
+echo "<input type = 'hidden' name = 'datacotacao' id = 'datacotacao' value = '$datacotacao'></span>";
 echo "&nbsp&nbsp";
-echo "<td><span style= 'font-size: 80%'><span style='font-weight: bold'>Data Inclusão:</span> $datacotacao</span></td>";
+echo "<span><span style= 'font-size: 80%'><span style='font-weight: bold'>Data Inclusão:</span> $datacotacao</span></span>";
 echo "&nbsp&nbsp";
-echo "<td><span style= 'font-size: 80%'><span style='font-weight: bold'>Data/Hora Início:</span> $dataHoraInicio</span></td>";
+echo "<span><span style= 'font-size: 80%'><span style='font-weight: bold'>Data/Hora Início:</span> $dataHoraInicio</span></span>";
 echo "&nbsp&nbsp";
-echo "<td><span style= 'font-size: 80%'><span style='font-weight: bold'>Data/Hora Término:</span> $dataHoraTermino</span></td>";
+echo "<span><span style= 'font-size: 80%'><span style='font-weight: bold'>Data/Hora Término:</span> $dataHoraTermino</span></span>";
 echo "&nbsp&nbsp";
 echo "<span style = 'font-size: 80%'><i class = 'icon-arrow-down' style = 'margin-top: -5px;'></i><i class = 'icon-arrow-up' style = 'margin-top: -5px;'></i>&nbsp;
 Custo abaixo ou acima da margem permitida</span>";
 echo "</div>";
 echo "</div>";
 echo "</div>";
-echo "<br>";
-echo "<br>";
-echo "<br>";
+echo "<div style='height: 70px;'></div>";
 
 if ($observacaocotacao != "") {
     echo "<div class = 'alert alert-block' style = 'margin-left: 15px;'>";
@@ -157,12 +155,19 @@ do {
         echo "<table class = 'grid'>";
         echo "<thead>";
         echo "<tr>";
-        echo "<td class = 'gridM' style = 'width: 60px; background: #FFFFFF; color: #000000'><i class = 'icon-list' style = 'margin-top: 0px;'></i> $row[descricao]</td>";
+        echo    '<td class = "gridM" style = "width: 60px; background: #00d7ac; color: #FFF; border-radius: 10px 10px 0px 0px;box-shadow: 1px -3px 7px 0px rgba(0,0,0,0.1);">
+                    <div style="display:flex; justify-content:start; align-items:center; padding: 3px 0px; margin-left: 3px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M9 8h10M9 12h10M9 16h10M4.99 8H5m-.02 4h.01m0 4H5"/>
+                        </svg>
+                        <span>'.$row["descricao"].'</span>
+                    </div>
+                </td>';
         echo "</tr>";
         echo "</thead>";
         echo "<tbody>";
 
-        echo "<table class = 'grid'>";
+        echo "<table class = 'grid' style='box-shadow: 1px 3px 7px 0px rgba(0,0,0,0.2);'>";
         echo "<thead>";
         echo "<tr>";
         echo "<td class = 'gridM' style = 'width: 60px'>Código</td>";
@@ -222,11 +227,33 @@ echo "</tbody>";
 echo "</table>";
 echo "<br>";
 
-echo "<div style = 'bottom:0 ; position: fixed; width: 100%; height: 65px; background-color: #FFFFFF; border-top: #E5E5E5 1px solid'>";
+echo "<div style = 'bottom:0 ; position: fixed; width: 100%; height: 75px; background-color: #FFFFFF; border-top: #E5E5E5 1px solid'>";
 echo "<div style = 'margin-left: 0px; height: 100%;margin-top: 5px'>";
-echo "<a class = 'btn btn-mini' href = '#' onclick = 'salvar()' style = 'position: relative; margin-left: 15px;'><i class = 'icon-ok'></i> Salvar</a>";
-echo "<a class = 'btn btn-mini' href = '#' onclick = 'exportaXlsx()' style = 'position: relative; margin-left: 10px;'><i class='icon-download-alt'></i> Exportar</a>";
-echo "<a class = 'btn btn-mini' href = '#' onclick = 'importaXlsx()' style = 'position: relative; margin-left: 10px;'><i class='icon-file'></i> Importar</a>";
+echo '<button class = "botaocotacao" href = "#" onclick = "salvar()" style = "position: relative; margin-left: 15px;">
+        <div style="display: flex; align-items: center; justify-content:center;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 11.917 9.724 16.5 19 7.5"/>
+            </svg>
+            <span>Salvar</span>
+        </div>
+    </button>';
+echo '<button class = "botaocotacao" href = "#" onclick = "exportaXlsx()" style = "position: relative; margin-left: 15px;">
+        <div style="display: flex; align-items: center; justify-content:center;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 15v2a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-2m-8 1V4m0 12-4-4m4 4 4-4"/>
+            </svg>
+            <span>Exportar</span>
+        </div>
+    </button>';
+echo '<button class = "botaocotacao" href = "#" onclick = "importaXlsx()" style = "position: relative; margin-left: 15px;">
+        <div style="display: flex; align-items: center; justify-content:center;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 3v4a1 1 0 0 1-1 1H5m4 8h6m-6-4h6m4-8v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1Z"/>
+            </svg>
+
+            <span>Importar</span>
+        </div>
+    </button>';
 echo "</div>";
 echo "</div>";
 ?>
