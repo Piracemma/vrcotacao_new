@@ -18,9 +18,11 @@ $nome = getNome();
 $sql = "SELECT mensagem FROM precotacaofornecedormensagem";
 $rst = pg_query($con, $sql);
 
+// $row = pg_fetch_all($rst);
 $row = pg_fetch_array($rst);
 
-$mensagem = htmlspecialchars($row["mensagem"],ENT_NOQUOTES, 'UTF-8');
+$mensagem = htmlspecialchars($row["mensagem"], ENT_NOQUOTES, 'UTF-8');
+// $mensagem = utf8_encode($row["mensagem"]);
 ?>
 
 <html>
@@ -45,9 +47,30 @@ $mensagem = htmlspecialchars($row["mensagem"],ENT_NOQUOTES, 'UTF-8');
         ?>
 
         <div id="content">
-            <div class="alert alert-block">
-                <h4>ATENÇÃO FORNECEDOR</h4><br>
-                <?= $mensagem ?>
+            <div>
+                <?php
+                    $cotacoes = listarCotacaoAberta();
+
+                    if(!empty($cotacoes)){
+                
+                ?>
+                    <h2 style="color: #00d7ac; font-size: x-large; font-weight: bold; margin-bottom: 10px; line-height: normal;">Cotações:</h2>
+                <?php
+
+                        foreach($cotacoes as $cotacao) {
+                ?>
+
+                            <div style="border:2px solid #00d7ac; border-radius: 10px; margin:15px 0px; box-shadow: 1px 2px 3px 1px rgba(0,0,0,0.5); display: flex; justify-content:space-between; align-items:center; padding: 15px;">
+                                <p style="margin: 0px;"><?= $cotacao['id'] ?> - <?= $cotacao['descricao'] ?></p>
+                                <a href="cotacao.php?cotacao=<?= $cotacao['id'] ?>" class="botao">Entrar</a>
+                            </div>
+
+                <?php   
+                        }
+                    } else {
+                ?>
+                        <div style="display: flex; justify-content:center; font-size:large; margin:15px 0px; color: #a1a1a1;">Você não possui nenhuma cotação aberta no momento.</div>
+                <?php } ?>
             </div>
         </div>
 
