@@ -5,10 +5,11 @@ include("conexao.php");
 include("global.php");
 include("atualizar_tabelas.php");
 
-$codigo = $_POST["codigo"];
+$codigo = htmlspecialchars($_POST["codigo"], ENT_QUOTES, 'UTF-8');
+//$codigo = $_POST["codigo"]; //! não Validava Caracteres Especiais
 $senha = $_POST["senha"];
 
-if ($codigo == "") {
+if ($codigo == "" || !is_numeric($codigo)) {
     echo("Código e/ou senha inválido");
     exit();
 }
