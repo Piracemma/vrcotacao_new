@@ -1,0 +1,15 @@
+version: "3.7"
+services:
+  vrcotacao:
+    container_name: "vrcotacao"
+    image: vrsoftbr/cotacao:latest
+    ports:
+      - 80:80
+    environment:
+      - TZ=GMT-3
+      - ID_LOJA=
+      - DB_SERVERNAME=
+      - DB_USER=
+      - DB_PASSWORD=
+      - DB_DATABASENAME=
+      - DB_PORT=

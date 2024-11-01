@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>php/cotacao_consultar.php</url>
+            <bookmark id="1">
+                <name/>
+                <line>54</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group name="Trunk"/>
+        <group name="TRUNK"/>
+        <group name="VER_3_13">
+            <file>file:/C:/svn/repositorioVR/VRCotacaoWeb/trunk/VRCotacaoWeb/index.php</file>
+            <file>file:/C:/svn/repositorioVR/VRCotacaoWeb/trunk/VRCotacaoWeb/login.php</file>
+            <file>file:/C:/svn/repositorioVR/VRCotacaoWeb/trunk/VRCotacaoWeb/php/login_entrar.php</file>
+            <file>file:/C:/svn/repositorioVR/VRCotacaoWeb/trunk/VRCotacaoWeb/php/global.php</file>
+            <file>file:/C:/svn/repositorioVR/VRCotacaoWeb/trunk/VRCotacaoWeb/php/conexao.php</file>
+            <file>file:/C:/svn/repositorioVR/VRCotacaoWeb/trunk/VRCotacaoWeb/cotacao.php</file>
+            <file>file:/C:/svn/repositorioVR/VRCotacaoWeb/trunk/VRCotacaoWeb/php/cotacao_consultar.php</file>
+            <file>file:/C:/svn/repositorioVR/VRCotacaoWeb/trunk/VRCotacaoWeb/php/cotacao_salvar.php</file>
+        </group>
+        <group name="trunk"/>
+    </open-files>
+</project-private>

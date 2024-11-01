@@ -1,0 +1,130 @@
+.loading-cursor {
+  cursor: wait !important;
+}
+
+.loading-cursor * {
+  cursor: wait !important;
+}
+
+body {
+  background: #FAFAFA
+}
+
+.hidden {
+  display: none !important;
+}
+
+.alterar-senha-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -142px;
+  margin-left: -225px;
+  width: 500px;
+  height: 300px;
+  border-radius: 1.13044rem;
+  background: linear-gradient(180deg, #FEFEFE 0%, #DCDCDC 100%);
+}
+
+.alterar-senha-container * {
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  font-family: Roboto;
+  color: #000;
+}
+
+.hideable-container {
+  display: flex;
+  flex-direction: column;
+  width: 210px;
+  left: 250px;
+  position: absolute;
+  top: 75px;
+  background: transparent;
+  color: #000;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+#form-container {
+  gap: 1rem !important;
+  width: 220px;
+}
+
+#form__error {
+  text-align: left;
+  color: #D04B38;
+  font-size: 0.625rem;
+}
+
+#success-container{
+  gap: 1rem;
+}
+
+#error-container {
+  gap: 0.4rem;
+}
+
+form {
+  width: 100% !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-bottom: 0 !important;
+}
+
+form label {
+  text-align: left !important;
+}
+
+form input {
+  margin-left: 2px;
+  width: 90% !important;
+}
+
+#mensagem_entrar {
+  position: absolute;
+  text-align: center;
+  left: 50%;
+  top: 50%;
+  margin-left: -225px;
+  margin-top: -190px;
+  width: 450px;
+  height: 40px;
+  color: #000;
+  vertical-align: middle
+}
+
+.action-buttons {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.button {
+  color: #545454;
+  text-align: center;
+  font-size: 0.6875rem;
+
+  display: flex;
+  height: 1.875rem;
+  padding: 0.25rem 1.25rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  align-self: stretch;
+  border-radius: 0.25rem;
+
+}
+
+.button--primary {
+  border: 1px solid #E0E0E0;
+  background: linear-gradient(180deg, #FBFBFB 0%, #BDBDBD 100%);
+}
+
+.button--secondary {
+  border: 1px solid #545454;
+}

@@ -1,0 +1,48 @@
+version: "3.7"
+services:
+  vrcotacao:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: "vrcotacao"
+    ports:
+      - 80:80
+    environment:
+      - TZ=GMT-3
+      - ID_LOJA=1
+      - DB_SERVERNAME=vrcotacao-db
+      - DB_DATABASENAME=vr
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_PORT=5432
+    volumes:
+      - ".:/var/www/html/cotacao"
+    entrypoint: ./.docker/entrypoint.dev.sh
+    networks:
+      - vrcotacao-net
+    depends_on:
+      - vrcotacao-db
+
+  vrcotacao-db:
+    build:
+      context: ./.docker/postgres
+      dockerfile: Dockerfile
+    command: postgres -c 'config_file=/etc/postgresql/postgresql.conf'
+    container_name: vrcotacao-db
+    volumes:
+      - './db/postgres:/var/lib/postgresql/data'
+      - './.docker/postgres/config/postgresql.conf:/etc/postgresql/postgresql.conf'
+      - './.docker/postgres/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh'
+      - './.docker/postgres/vr.bkp:/tmp/vr.bkp'
+    environment:
+      - POSTGRES_DB=vr
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    networks:
+      - vrcotacao-net
+
+networks:
+  vrcotacao-net:
+    driver: bridge
